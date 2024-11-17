@@ -6,6 +6,7 @@ from django.core.exceptions import ValidationError
 from .models import Product
 from .form import ProductForm
 import os
+from django.conf import settings
 
 def validate_image(image):
     # Проверка размера файла (максимум 5MB)
@@ -21,7 +22,7 @@ def validate_image(image):
 
 def product_list(request):
     products = Product.objects.all()
-    return render(request, 'list.html', {'products': products})
+    return render(request, 'list.html', {'products': products, 'MEDIA_URL': settings.MEDIA_URL})
 
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
